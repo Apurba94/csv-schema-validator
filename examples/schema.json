@@ -1,0 +1,17 @@
+{
+  "strict": true,
+  "primary_key": ["subject_id", "visit"],
+  "missing_values": ["", "NA"],
+  "columns": {
+    "subject_id": {"type": "string", "required": true, "pattern": "S\\d{3}"},
+    "visit": {"type": "integer", "required": true, "enum": [1, 2, 3]},
+    "date": {"type": "date", "format": "%Y-%m-%d", "required": true},
+    "age": {"type": "integer", "min": 18, "max": 99},
+    "sex": {"type": "string", "enum": ["F", "M", "X"]},
+    "pregnant": {"type": "boolean"},
+    "weight_kg": {"type": "number", "min": 20, "max": 300}
+  },
+  "row_rules": [
+    {"if": {"sex": "M"}, "then": {"pregnant": "empty"}, "message": "pregnancy must be empty for male participants"}
+  ]
+}
